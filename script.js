@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let y = 30;
         doc.text(`Bayaran Diterima Dari: ${payerName}`, 20, y);
         y += 8;
+        doc.text(`Bayaran Diterima Oleh: ${payerName}`, 20, y);
+        y += 8;
         doc.text(`Tarikh Transaksi: ${transactionDate}`, 20, y);
         y += 10;
         doc.text("Senarai Pembayaran:", 20, y);
