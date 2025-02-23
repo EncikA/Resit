@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const { jsPDF } = window.jspdf;
 
+    const paymentForm = document.getElementById("paymentForm");
     const addPaymentButton = document.getElementById("addPayment");
     const paymentList = document.getElementById("paymentList");
     const totalAmountField = document.getElementById("totalAmount");
@@ -44,23 +45,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Retrieve Input Values
         const payerName = document.getElementById("payerName").value || "Nama Pembayar";
-        const receivedBy = document.getElementById("receivedBy")?.value || "Nama Penerima"; // Ensure it's separate
+        const receivedBy = document.getElementById("receivedBy").value || "Nama Penerima";
         let transactionDate = document.getElementById("transactionDate").value;
 
         // Convert date format to dd/mm/yyyy
-        if (transactionDate) {
-            const dateParts = transactionDate.split("-");
-            if (dateParts.length === 3) {
-                transactionDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-            }
-        } else {
-            transactionDate = "Tarikh Tidak Ditetapkan";
-        }
+        transactionDate = transactionDate 
+            ? transactionDate.split("-").reverse().join("/")
+            : "Tarikh Tidak Ditetapkan";
 
         let y = 30;
         doc.text(`Bayaran Diterima Dari: ${payerName}`, 20, y);
         y += 8;
-        doc.text(`Bayaran Diterima Oleh: ${receivedBy}`, 20, y); // Ensure different variable
+        doc.text(`Bayaran Diterima Oleh: ${receivedBy}`, 20, y);
         y += 8;
         doc.text(`Tarikh Transaksi: ${transactionDate}`, 20, y);
         y += 10;
@@ -77,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         y += 10;
         doc.text(`Jumlah Pembayaran: RM${totalAmountField.value}`, 20, y);
-        y += 12; // Ensure spacing before the footer
+        y += 12;
 
         // Footer
         doc.setFontSize(10);
@@ -87,11 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Generate Report & Receipt Buttons
-    document.getElementById("generateReport").addEventListener("click", () => {
-        generatePDF("Laporan");
-    });
-
-    document.getElementById("generateReceipt").addEventListener("click", () => {
-        generatePDF("Resit");
-    });
+    document.getElementById("generateReport").addEventListener("click", () => generatePDF("Laporan"));
+    document.getElementById("generateReceipt").addEventListener("click", () => generatePDF("Resit"));
 });
