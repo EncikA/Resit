@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function generatePDF(type) {
         const doc = new jsPDF();
         doc.setFontSize(12);
-        doc.text(`App Rekod Pembayaran & Resit - ${type}`, 105, 15, null, null, "center");
+        doc.text(`Rekod Pembayaran - ${type}`, 105, 15, null, null, "center");
 
         const payerName = document.getElementById("payerName").value;
         let transactionDate = document.getElementById("transactionDate").value;
